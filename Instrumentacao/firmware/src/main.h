@@ -40,7 +40,7 @@
 
 // include the library code:
 #include <LiquidCrystal.h>
-
+//#define DEBUG_TIME
 #define FE_PORT 0
 #define FD_PORT 1
 #define TE_PORT 2
@@ -50,14 +50,19 @@
 #define T_PIN      3
 #define CAL_PIN    4
 
-#define BUFFER_SIZE 16
-#define UPDATE_LCD_HZ 10
+#define BUFFER_SIZE 32
+#define bitshift    8
+#define UPDATE_LCD_HZ 25
 // initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
 const int rs = 13, en = 12, d4 = 11, d5 = 10, d6 = 9, d7 = 8;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-const double calibrationFactor = 0.5594;
+const double calibrationFactorDe = 0.48481;
+const double calibrationFactorDd = 0.48481;
+const double calibrationFactorTe = 0.48481;
+const double calibrationFactorTd = 0.48481;
+
 unsigned long latupdateTime = 0;
 
 byte state = 0;
@@ -65,29 +70,30 @@ boolean funcState = false;
 boolean tState = false;
 boolean calState = false;
 
-uint16_t dataDe[BUFFER_SIZE];
-uint16_t dataDd[BUFFER_SIZE];
-uint16_t dataTe[BUFFER_SIZE];
-uint16_t dataTd[BUFFER_SIZE];
+int32_t dataDe[BUFFER_SIZE];
+int32_t dataDd[BUFFER_SIZE];
+int32_t dataTe[BUFFER_SIZE];
+int32_t dataTd[BUFFER_SIZE];
 
-float taraDe = 0;
-float taraDd = 0;
-float taraTe = 0;
-float taraTd = 0;
+double taraDe = 0;
+double taraDd = 0;
+double taraTe = 0;
+double taraTd = 0;
 
-float total = 0;
-float de = 0;
-float dd = 0;
-float te = 0;
-float td = 0;
+double total = 0;
+double de = 0;
+double dd = 0;
+double te = 0;
+double td = 0;
 
 void printScales();
 void printLong();
 void printLat();
 void printTotal();
 void tara();
+void calibracao();
 
 void readButtons();
 void readData();
 void processData();
-float mediaMovel(uint16_t *array);
+int32_t mediaMovel(int32_t *array);
