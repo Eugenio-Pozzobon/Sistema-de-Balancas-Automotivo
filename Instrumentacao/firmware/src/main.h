@@ -51,7 +51,7 @@
 #define CAL_PIN    4
 
 #define BUFFER_SIZE 32
-#define bitshift    5
+#define bitshift    8
 #define UPDATE_LCD_HZ 25
 // initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
