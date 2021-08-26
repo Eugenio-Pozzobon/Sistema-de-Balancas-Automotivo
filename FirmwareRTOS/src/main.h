@@ -54,14 +54,13 @@ double dd = 0;
 double te = 0;
 double td = 0;
 
-//void printScales();
-//void printLong();
-//void printLat();
-//void printTotal();
-//void tara();
-//void calibracao();
-//
-//void readButtons();
-//void readData();
-//void processData();
-//int32_t mediaMovel(int32_t *array);
+void printScales();
+void printLong();
+void printLat();
+void printTotal();
+void tara();
+
+void readButtons();
+void readData();
+void processData();
+int32_t mediaMovel(int32_t *array);
