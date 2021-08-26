@@ -43,10 +43,11 @@ int32_t dataDd[BUFFER_SIZE];
 int32_t dataTe[BUFFER_SIZE];
 int32_t dataTd[BUFFER_SIZE];
 
-double taraDe = 0;
-double taraDd = 0;
-double taraTe = 0;
-double taraTd = 0;
+#include <EEPROM.h>
+int32_t taraDe = 0;
+int32_t taraDd = 0;
+int32_t taraTe = 0;
+int32_t taraTd = 0;
 
 double total = 0;
 double de = 0;
