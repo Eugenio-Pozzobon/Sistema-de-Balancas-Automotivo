@@ -20,7 +20,7 @@
 
 #define BUFFER_SIZE 32
 #define bitshift    5
-#define UPDATE_LCD_HZ 25
+#define UPDATE_LCD_HZ 10
 // initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
 const int rs = 13, en = 12, d4 = 11, d5 = 10, d6 = 9, d7 = 8;

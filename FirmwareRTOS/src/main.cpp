@@ -2,15 +2,14 @@
 
 #include "main.h"
 
-
 #include <Arduino_FreeRTOS.h>
 #include <semphr.h>
 #include <queue.h>
 #include <task.h>
 
-// define two tasks for Blink & AnalogRead
-void TaskLeitura( void *pvParameters );
-void TaskUpdateLCD( void *pvParameters );
+// define two tasks for read and print data
+[[noreturn]] void TaskLeitura( void *pvParameters );
+[[noreturn]] void TaskUpdateLCD( void *pvParameters );
 
 SemaphoreHandle_t xSerialSemaphore; ///mutex que vai controlar porta serial
 
@@ -19,15 +18,13 @@ void setup() {
     // initialize serial communication at 9600 bits per second:
     Serial.begin(9600);
 
-
-
-
     if ( xSerialSemaphore == NULL ) { ///verifica se o semaforo da porta serial ja existe
         xSerialSemaphore = xSemaphoreCreateMutex();  ///cria a mutex que controla a porta serial
-
-        if ( ( xSerialSemaphore ) != NULL )
-            xSemaphoreGive( ( xSerialSemaphore ) );  ///torna a porta serial disponivel
     }
+
+
+    if ( ( xSerialSemaphore ) != NULL )
+        xSemaphoreGive( ( xSerialSemaphore ) );  ///torna a porta serial disponivel
 
     // Now set up two tasks to run independently.
     xTaskCreate(
@@ -50,17 +47,11 @@ void setup() {
     // Now the task scheduler, which takes over control of scheduling individual tasks, is automatically started.
 }
 
-void loop()
-{
+void loop(){
     // Empty. Things are done in Tasks.
 }
 
-/*--------------------------------------------------*/
-/*---------------------- Tasks ---------------------*/
-/*--------------------------------------------------*/
-
-void TaskLeitura(void *pvParameters)  // This is a task.
-{
+[[noreturn]] void TaskLeitura(void *pvParameters){
     (void) pvParameters;
 
     for (int i = 0; i < BUFFER_SIZE; i++) {
@@ -74,21 +65,16 @@ void TaskLeitura(void *pvParameters)  // This is a task.
     pinMode(T_PIN, INPUT_PULLUP);
     pinMode(CAL_PIN, INPUT_PULLUP);
 
-    for (;;) { // A Task shall never return or exit.
-
-        readButtons();
-        readData();
-
-        if ((millis() - latupdateTime) > 1000 / UPDATE_LCD_HZ) {
+    while(true) { // A Task shall never return or exit.
+        if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t )5 ) == pdTRUE ) {
+            readButtons();
+            readData();
             xSemaphoreGive( xSerialSemaphore );
         }
     }
-
-
-
 }
 
-void TaskUpdateLCD(void *pvParameters)  // This is a task.
+[[noreturn]] void TaskUpdateLCD(void *pvParameters)  // This is a task.
 {
     (void) pvParameters;
 
@@ -99,41 +85,39 @@ void TaskUpdateLCD(void *pvParameters)  // This is a task.
     lcd.setCursor(4, 0); lcd.print("INICIANDO");
 
 
-    for (;;) {
-        //if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t )25 ) == pdTRUE ) { ///verifica se o semaforo esta disponivel; se sim, continua
+    while(true) {
+        if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t )5 ) == pdTRUE ) {
+            state += (funcState ? 1 : 0);
+            state = state > 3 ? 0 : state;
 
-        latupdateTime = millis();
-        state += (funcState ? 1 : 0);
-        state = state > 3 ? 0 : state;
-
-        if (tState) {
-            tara();
-        } else {
-            switch (state) {
-                case 0:
-                    printScales();
-                    break;
-
-                    case 1:
-                        printLat();
+            if (tState) {
+                tara();
+            } else {
+                switch (state) {
+                    case 0:
+                        printScales();
                         break;
 
-                        case 2:
-                            printLong();
+                        case 1:
+                            printLat();
                             break;
 
-                            case 3:
-                                printTotal();
+                            case 2:
+                                printLong();
                                 break;
 
-                                default:
+                                case 3:
+                                    printTotal();
                                     break;
 
+                                    default:
+                                        break;
+
+                }
             }
-            funcState ? vTaskDelay( 100 / portTICK_PERIOD_MS ) : vTaskDelay( 1 / portTICK_PERIOD_MS );
+            xSemaphoreGive( xSerialSemaphore );
+            vTaskDelay( (1000 / UPDATE_LCD_HZ) / portTICK_PERIOD_MS );
         }
-        vTaskDelay( 500 / portTICK_PERIOD_MS ) ;
-        //}
     }
 }
 
@@ -202,6 +186,8 @@ void tara() {
     taraDd += float(dd / calibrationFactorDd);
     taraTe += float(te / calibrationFactorTe);
     taraTd += float(td / calibrationFactorTd);
+
+    //todo: save EEPROM Data
     vTaskDelay( 100 / portTICK_PERIOD_MS );
 }
 
