@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = C:\Users\eugen\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\212.4746.93\bin\cmake\win\bin\cmake.exe
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = C:\Users\eugen\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\212.4746.93\bin\cmake\win\bin\cmake.exe -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\maure\Documents\GitHub\Sistema-de-Balancas-Automotivo\Firmware RTOS"
+CMAKE_SOURCE_DIR = "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\maure\Documents\GitHub\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug"
+CMAKE_BINARY_DIR = "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug"
 
 # Utility rule file for Production.
 
@@ -66,7 +66,7 @@ include CMakeFiles/Production.dir/compiler_depend.make
 include CMakeFiles/Production.dir/progress.make
 
 CMakeFiles/Production:
-	cd /d C:\Users\maure\DOCUME~1\GitHub\SISTEM~1\FIRMWA~1 && platformio -c clion run -eDebug
+	cd /d "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS" && platformio -c clion run -eDebug
 
 Production: CMakeFiles/Production
 Production: CMakeFiles/Production.dir/build.make
@@ -81,6 +81,6 @@ CMakeFiles/Production.dir/clean:
 .PHONY : CMakeFiles/Production.dir/clean
 
 CMakeFiles/Production.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "C:\Users\maure\Documents\GitHub\Sistema-de-Balancas-Automotivo\Firmware RTOS" "C:\Users\maure\Documents\GitHub\Sistema-de-Balancas-Automotivo\Firmware RTOS" "C:\Users\maure\Documents\GitHub\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug" "C:\Users\maure\Documents\GitHub\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug" "C:\Users\maure\Documents\GitHub\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug\CMakeFiles\Production.dir\DependInfo.cmake" --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS" "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS" "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug" "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug" "E:\Git\Sistema-de-Balancas-Automotivo\Firmware RTOS\cmake-build-debug\CMakeFiles\Production.dir\DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/Production.dir/depend
 
