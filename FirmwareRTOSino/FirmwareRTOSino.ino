@@ -47,39 +47,30 @@ double te = 0;
 double td = 0;
 
 #include <Arduino_FreeRTOS.h>
-#include <semphr.h>  
-#include <queue.h>  
+#include <semphr.h>
+#include <queue.h>
 #include <task.h>
 
 // define two tasks for Blink & AnalogRead
 void TaskLeitura( void *pvParameters );
 void TaskUpdateLCD( void *pvParameters );
 
+SemaphoreHandle_t xSerialSemaphore; ///mutex que vai controlar porta serial
+
 // the setup function runs once when you press reset or power the board
 void setup() {
 
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-  
-  // set up the LCD's number of columns and rows:
-  for (int i = 0; i < BUFFER_SIZE; i++) {
-    dataDe[i] = 0;
-    dataDd[i] = 0;
-    dataTe[i] = 0;
-    dataTd[i] = 0;
-  }
 
-  lcd.begin(16, 2);
-  lcd.clear();
 
-  lcd.setCursor(4, 0); lcd.print("INICIANDO");
 
-  pinMode(FUNC_PIN, INPUT_PULLUP);
-  pinMode(T_PIN, INPUT_PULLUP);
-  pinMode(CAL_PIN, INPUT_PULLUP);
 
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB, on LEONARDO, MICRO, YUN, and other 32u4 based boards.
+  if ( xSerialSemaphore == NULL ) { ///verifica se o semaforo da porta serial ja existe
+    xSerialSemaphore = xSemaphoreCreateMutex();  ///cria a mutex que controla a porta serial
+
+    if ( ( xSerialSemaphore ) != NULL )
+      xSemaphoreGive( ( xSerialSemaphore ) );  ///torna a porta serial disponivel
   }
 
   // Now set up two tasks to run independently.
@@ -88,7 +79,7 @@ void setup() {
     ,  "Leitura"   // A name just for humans
     ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,  NULL
-    ,  2  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+    ,  1  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,  NULL );
 
   xTaskCreate(
@@ -115,20 +106,46 @@ void loop()
 void TaskLeitura(void *pvParameters)  // This is a task.
 {
   (void) pvParameters;
-  for (;;) // A Task shall never return or exit.
-  {
+
+  for (int i = 0; i < BUFFER_SIZE; i++) {
+    dataDe[i] = 0;
+    dataDd[i] = 0;
+    dataTe[i] = 0;
+    dataTd[i] = 0;
+  }
+
+  pinMode(FUNC_PIN, INPUT_PULLUP);
+  pinMode(T_PIN, INPUT_PULLUP);
+  pinMode(CAL_PIN, INPUT_PULLUP);
+
+  for (;;) { // A Task shall never return or exit.
+
     readButtons();
     readData();
+
+    if ((millis() - latupdateTime) > 1000 / UPDATE_LCD_HZ) {
+      xSemaphoreGive( xSerialSemaphore );
+    }
   }
+
+
+
 }
 
 void TaskUpdateLCD(void *pvParameters)  // This is a task.
 {
   (void) pvParameters;
 
-  for (;;)
-  {
-    if ((millis() - latupdateTime) > 1000 / UPDATE_LCD_HZ) {
+
+  lcd.begin(16, 2);
+  lcd.clear();
+
+  lcd.setCursor(4, 0); lcd.print("INICIANDO");
+
+
+  for (;;) {
+    //if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t )25 ) == pdTRUE ) { ///verifica se o semaforo esta disponivel; se sim, continua
+
       latupdateTime = millis();
       state += (funcState ? 1 : 0);
       state = state > 3 ? 0 : state;
@@ -157,41 +174,17 @@ void TaskUpdateLCD(void *pvParameters)  // This is a task.
             break;
 
         }
-        funcState ? vTaskDelay( 100 / portTICK_PERIOD_MS ):vTaskDelay( 1 / portTICK_PERIOD_MS ); 
+        funcState ? vTaskDelay( 100 / portTICK_PERIOD_MS ) : vTaskDelay( 1 / portTICK_PERIOD_MS );
       }
-    }
+    vTaskDelay( 500 / portTICK_PERIOD_MS ) ;
+    //}
   }
 }
 
-
-// *********************************************
-// CÃ“DIGO BASE DO OUTRO ARQUIVO COM AS FUNÃ‡Ã•ES
-
-//void loop() {
-//    readButtons();
-//
-//    if(calState)
-//        calibracao();
-//
-//#ifdef DEBUG_TIME
-//    unsigned long readTime = millis();
-//#endif
-//    readData();
-//
-//#ifdef DEBUG_TIME
-//    unsigned long readTime_ = millis()-readTime;
-//    lcd.clear();
-//    lcd.setCursor(0, 0);
-//    lcd.print(readTime_);
-//#else
-//
-//#endif
-//}
-//
-void readButtons(){
-    funcState = !digitalRead(FUNC_PIN);
-    tState = !digitalRead(T_PIN);
-    calState = !digitalRead(CAL_PIN);
+void readButtons() {
+  funcState = !digitalRead(FUNC_PIN);
+  tState = !digitalRead(T_PIN);
+  calState = !digitalRead(CAL_PIN);
 }
 
 void printScales() {
@@ -206,7 +199,8 @@ void printScales() {
   lcd.setCursor(14, 0); lcd.print("kg");
   lcd.setCursor(14, 1); lcd.print("kg");
 }
-//
+
+/// 
 void printLong() {
   lcd.clear();
   lcd.setCursor(0, 0); lcd.print("Diant.: ");
@@ -234,40 +228,40 @@ void printTotal() {
   lcd.setCursor(10, 1); lcd.print("kg");
 }
 
-void readData(){
-    for(int i = 0; i < BUFFER_SIZE; i++){
-        dataDe[i] = analogRead(FE_PORT)-511;
-        dataDd[i] = analogRead(FD_PORT)-511;
-        dataTe[i] = analogRead(TE_PORT)-511;
-        dataTd[i] = analogRead(TD_PORT)-511;
-    }
-    processData();
+void readData() {
+  for (int i = 0; i < BUFFER_SIZE; i++) {
+    dataDe[i] = analogRead(FE_PORT) - 511;
+    dataDd[i] = analogRead(FD_PORT) - 511;
+    dataTe[i] = analogRead(TE_PORT) - 511;
+    dataTd[i] = analogRead(TD_PORT) - 511;
+  }
+  processData();
 }
+
 
 void tara() {
   lcd.clear();
   lcd.setCursor(0, 4); lcd.print("TARANDO");
-  vTaskDelay( 100 / portTICK_PERIOD_MS );
   taraDe += float(de / calibrationFactorDe);
   taraDd += float(dd / calibrationFactorDd);
   taraTe += float(te / calibrationFactorTe);
   taraTd += float(td / calibrationFactorTd);
-}
-//
-//
-void processData(){
-    de = (float(mediaMovel(dataDe))-taraDe)*calibrationFactorDe;
-    dd = (float(mediaMovel(dataDd))-taraDd)*calibrationFactorDd;
-    te = (float(mediaMovel(dataTe))-taraTe)*calibrationFactorTe;
-    td = (float(mediaMovel(dataTd))-taraTd)*calibrationFactorTd;
-    total = de+dd+te+td;
-    total = total==0?1:total;
+  vTaskDelay( 100 / portTICK_PERIOD_MS );
 }
 
-int32_t mediaMovel(int32_t *array){
-    int32_t media = 0;
-    for(int i = 0; i<BUFFER_SIZE; i++){
-        media += (array[i]);
-    }
-    return (media >> bitshift);// / BUFFER_SIZE;
+void processData() {
+  de = (float(mediaMovel(dataDe)) - taraDe) * calibrationFactorDe;
+  dd = (float(mediaMovel(dataDd)) - taraDd) * calibrationFactorDd;
+  te = (float(mediaMovel(dataTe)) - taraTe) * calibrationFactorTe;
+  td = (float(mediaMovel(dataTd)) - taraTd) * calibrationFactorTd;
+  total = de + dd + te + td;
+  total = total == 0 ? 1 : total;
+}
+
+int32_t mediaMovel(int32_t *array) {
+  int32_t media = 0;
+  for (int i = 0; i < BUFFER_SIZE; i++) {
+    media += (array[i]);
+  }
+  return (media >> bitshift);// / BUFFER_SIZE;
 }

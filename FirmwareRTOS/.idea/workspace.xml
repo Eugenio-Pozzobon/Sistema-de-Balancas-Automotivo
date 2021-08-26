@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="FirmwareRTOS" targetName="Production" />
@@ -13,7 +16,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e545b6e-9b04-44d5-8c4a-fcbac7b9a61e" name="Changes" comment="Commit files" />
+    <list default="true" id="d58e6fb9-a0b1-4e7b-9bd7-79215165b9e7" name="Changes" comment="merging basic functions and files&#10;updating hardware simulation inside proteus">
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1xFTjIZrmAZ6a4CYXD9kOM0aXWK" />
+  <component name="ProjectId" id="1xFWI7cJ0eYK6cJM0qqnNGOyvLU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,7 +46,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+    <property name="settings.editor.selected.configurable" value="pyconsole" />
   </component>
   <component name="RunManager" selected="PlatformIO.PlatformIO Upload">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
@@ -54,9 +59,9 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="PlatformIO Debug" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FirmwareRTOS" TARGET_NAME="Debug" CONFIG_NAME="uno" RUN_TARGET_PROJECT_NAME="FirmwareRTOS" RUN_TARGET_NAME="Debug">
@@ -78,24 +83,19 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8e545b6e-9b04-44d5-8c4a-fcbac7b9a61e" name="Changes" comment="" />
-      <created>1629949971281</created>
+      <changelist id="d58e6fb9-a0b1-4e7b-9bd7-79215165b9e7" name="Changes" comment="" />
+      <created>1629951233664</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1629949971281</updated>
-      <workItem from="1629949973491" duration="1961000" />
-      <workItem from="1629952294507" duration="660000" />
-      <workItem from="1629952981925" duration="451000" />
-      <workItem from="1629953453878" duration="568000" />
-      <workItem from="1629954043779" duration="1000" />
-      <workItem from="1629954240427" duration="331000" />
+      <updated>1629951233664</updated>
+      <workItem from="1629951235156" duration="3532000" />
     </task>
-    <task id="LOCAL-00001" summary="Commit files">
-      <created>1629950973724</created>
+    <task id="LOCAL-00001" summary="merging basic functions and files&#10;updating hardware simulation inside proteus">
+      <created>1629952434801</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1629950973724</updated>
+      <updated>1629952434801</updated>
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -113,11 +113,10 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit files" />
+    <MESSAGE value="merging basic functions and files&#10;updating hardware simulation inside proteus" />
+    <option name="LAST_COMMIT_MESSAGE" value="merging basic functions and files&#10;updating hardware simulation inside proteus" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
