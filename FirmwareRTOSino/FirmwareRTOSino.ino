@@ -47,6 +47,9 @@ double te = 0;
 double td = 0;
 
 #include <Arduino_FreeRTOS.h>
+#include <semphr.h>  
+#include <queue.h>  
+#include <task.h>
 
 // define two tasks for Blink & AnalogRead
 void TaskLeitura( void *pvParameters );
@@ -93,7 +96,7 @@ void setup() {
     ,  "UpdateLCD"
     ,  128  // Stack size
     ,  NULL
-    ,  1  // Priority
+    ,  2  // Priority
     ,  NULL );
 
   vTaskStartScheduler();
