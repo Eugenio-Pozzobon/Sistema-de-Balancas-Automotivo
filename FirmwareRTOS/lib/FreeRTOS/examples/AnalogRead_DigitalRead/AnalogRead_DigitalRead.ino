@@ -3,7 +3,7 @@
 
 // Declare a mutex Semaphore Handle which we will use to manage the Serial Port.
 // It will be used to ensure only one Task is accessing this resource at any time.
-SemaphoreHandle_t xSerialSemaphore;
+SemaphoreHandle_t threadSemaphore;
 
 // define two Tasks for DigitalRead & AnalogRead
 void TaskDigitalRead( void *pvParameters );
@@ -22,11 +22,11 @@ void setup() {
   // Semaphores are useful to stop a Task proceeding, where it should be paused to wait,
   // because it is sharing a resource, such as the Serial port.
   // Semaphores should only be used whilst the scheduler is running, but we can set it up here.
-  if ( xSerialSemaphore == NULL )  // Check to confirm that the Serial Semaphore has not already been created.
+  if (threadSemaphore == NULL )  // Check to confirm that the Serial Semaphore has not already been created.
   {
-    xSerialSemaphore = xSemaphoreCreateMutex();  // Create a mutex semaphore we will use to manage the Serial Port
-    if ( ( xSerialSemaphore ) != NULL )
-      xSemaphoreGive( ( xSerialSemaphore ) );  // Make the Serial Port available for use, by "Giving" the Semaphore.
+      threadSemaphore = xSemaphoreCreateMutex();  // Create a mutex semaphore we will use to manage the Serial Port
+    if (( threadSemaphore ) != NULL )
+      xSemaphoreGive( ( threadSemaphore ) );  // Make the Serial Port available for use, by "Giving" the Semaphore.
   }
 
   // Now set up two Tasks to run independently.
@@ -80,7 +80,7 @@ void TaskDigitalRead( void *pvParameters __attribute__((unused)) )  // This is a
 
     // See if we can obtain or "Take" the Serial Semaphore.
     // If the semaphore is not available, wait 5 ticks of the Scheduler to see if it becomes free.
-    if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t ) 5 ) == pdTRUE )
+    if (xSemaphoreTake(threadSemaphore, ( TickType_t ) 5 ) == pdTRUE )
     {
       // We were able to obtain or "Take" the semaphore and can now access the shared resource.
       // We want to have the Serial Port for us alone, as it takes some time to print,
@@ -88,7 +88,7 @@ void TaskDigitalRead( void *pvParameters __attribute__((unused)) )  // This is a
       // print out the state of the button:
       Serial.println(buttonState);
 
-      xSemaphoreGive( xSerialSemaphore ); // Now free or "Give" the Serial Port for others.
+      xSemaphoreGive(threadSemaphore ); // Now free or "Give" the Serial Port for others.
     }
 
     vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
@@ -105,7 +105,7 @@ void TaskAnalogRead( void *pvParameters __attribute__((unused)) )  // This is a 
 
     // See if we can obtain or "Take" the Serial Semaphore.
     // If the semaphore is not available, wait 5 ticks of the Scheduler to see if it becomes free.
-    if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t ) 5 ) == pdTRUE )
+    if (xSemaphoreTake(threadSemaphore, ( TickType_t ) 5 ) == pdTRUE )
     {
       // We were able to obtain or "Take" the semaphore and can now access the shared resource.
       // We want to have the Serial Port for us alone, as it takes some time to print,
@@ -113,7 +113,7 @@ void TaskAnalogRead( void *pvParameters __attribute__((unused)) )  // This is a 
       // print out the value you read:
       Serial.println(sensorValue);
 
-      xSemaphoreGive( xSerialSemaphore ); // Now free or "Give" the Serial Port for others.
+      xSemaphoreGive(threadSemaphore ); // Now free or "Give" the Serial Port for others.
     }
 
     vTaskDelay(1);  // one tick delay (15ms) in between reads for stability

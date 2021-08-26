@@ -2,37 +2,38 @@
 
 #include "main.h"
 
+///include FreeRTOS librarys
 #include <Arduino_FreeRTOS.h>
 #include <semphr.h>
 #include <queue.h>
 #include <task.h>
 
-// define two tasks for read and print data
+/// define two tasks for read and print data
 [[noreturn]] void TaskLeitura(void *pvParameters);
-
 [[noreturn]] void TaskUpdateLCD(void *pvParameters);
 
-SemaphoreHandle_t xSerialSemaphore; ///mutex que vai controlar porta serial
+SemaphoreHandle_t threadSemaphore; ///mutex que vai controlar porta serial
 
 void setup() {
 
-    // initialize serial communication at 9600 bits per second:
+    /// initialize serial communication at 9600 bits per second:
     Serial.begin(9600);
 
+    /// read EEPROM data
     taraDe = EEPROM.read(0) << 8 | EEPROM.read(1);
     taraDd = EEPROM.read(2) << 8 | EEPROM.read(3);
     taraTe = EEPROM.read(4) << 8 | EEPROM.read(5);
     taraTd = EEPROM.read(6) << 8 | EEPROM.read(7);
 
-    if (xSerialSemaphore == NULL) { ///verifica se o semaforo da porta serial ja existe
-        xSerialSemaphore = xSemaphoreCreateMutex();  ///cria a mutex que controla a porta serial
+    if (threadSemaphore == NULL) { ///verifica se o semaforo da porta serial ja existe
+        threadSemaphore = xSemaphoreCreateMutex();  ///cria a mutex
     }
 
 
-    if ((xSerialSemaphore) != NULL)
-        xSemaphoreGive((xSerialSemaphore));  ///torna a porta serial disponivel
+    if ((threadSemaphore) != NULL)
+        xSemaphoreGive((threadSemaphore));  ///torna a porta serial disponivel
 
-    // Now set up two tasks to run independently.
+    /// Now set up two tasks to run independently.
     xTaskCreate(
             TaskLeitura, "Leitura"   // A name just for humans
             , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
@@ -45,7 +46,6 @@ void setup() {
             , NULL);
 
     vTaskStartScheduler();
-    // Now the task scheduler, which takes over control of scheduling individual tasks, is automatically started.
 }
 
 void loop() {
@@ -64,13 +64,12 @@ void loop() {
 
     pinMode(FUNC_PIN, INPUT_PULLUP);
     pinMode(T_PIN, INPUT_PULLUP);
-    pinMode(CAL_PIN, INPUT_PULLUP);
 
     while (true) { // A Task shall never return or exit.
-        if (xSemaphoreTake(xSerialSemaphore, (TickType_t) 5) == pdTRUE) {
+        if (xSemaphoreTake(threadSemaphore, (TickType_t) 5) == pdTRUE) {
             readButtons();
             readData();
-            xSemaphoreGive(xSerialSemaphore);
+            xSemaphoreGive(threadSemaphore);
         }
     }
 }
@@ -88,7 +87,7 @@ void loop() {
 
 
     while (true) {
-        if (xSemaphoreTake(xSerialSemaphore, (TickType_t) 5) == pdTRUE) {
+        if (xSemaphoreTake(threadSemaphore, (TickType_t) 5) == pdTRUE) {
             state += (funcState ? 1 : 0);
             state = state > 3 ? 0 : state;
 
@@ -117,29 +116,35 @@ void loop() {
 
                 }
             }
-            xSemaphoreGive(xSerialSemaphore);
+            xSemaphoreGive(threadSemaphore);
             vTaskDelay((1000 / UPDATE_LCD_HZ) / portTICK_PERIOD_MS);
         }
     }
 }
 
+
+/// read state of each button
 void readButtons() {
     funcState = !digitalRead(FUNC_PIN);
     tState = !digitalRead(T_PIN);
-    calState = !digitalRead(CAL_PIN);
 }
 
+
+/// print data in LCD about individual scales data
 void printScales() {
     lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print((de));  //lcd.print(analogRead(FE_PORT)-512);//
-    lcd.setCursor(9, 0);
-    lcd.print((dd));  //lcd.print(analogRead(FD_PORT)-512);//
-    lcd.setCursor(0, 1);
-    lcd.print((te));  //lcd.print(analogRead(TE_PORT)-512);//
-    lcd.setCursor(9, 1);
-    lcd.print((td));  //lcd.print(analogRead(TD_PORT)-512);//
 
+    //print values
+    lcd.setCursor(0, 0);
+    lcd.print((de));
+    lcd.setCursor(9, 0);
+    lcd.print((dd));
+    lcd.setCursor(0, 1);
+    lcd.print((te));
+    lcd.setCursor(9, 1);
+    lcd.print((td));
+
+    //print units
     lcd.setCursor(5, 0);
     lcd.print("kg");
     lcd.setCursor(5, 1);
@@ -150,23 +155,29 @@ void printScales() {
     lcd.print("kg");
 }
 
-///
+/// print data in LCD about longitudinal mass distribution
 void printLong() {
     lcd.clear();
+
     lcd.setCursor(0, 0);
     lcd.print("Diant.: ");
     lcd.setCursor(0, 1);
     lcd.print("Tras.: ");
+
+    //print values
     lcd.setCursor(10, 0);
     lcd.print(int((de + dd) * 100 / total));
     lcd.setCursor(10, 1);
     lcd.print(int((te + td) * 100 / total));
     lcd.setCursor(15, 0);
+
+    //print units
     lcd.print("%");
     lcd.setCursor(15, 1);
     lcd.print("%");
 }
 
+/// print data in LCD about lateral mass distribution
 void printLat() {
     lcd.clear();
     lcd.setCursor(0, 0);
@@ -183,16 +194,22 @@ void printLat() {
     lcd.print("%");
 }
 
+/// print data in LCD about total mass of the car
 void printTotal() {
     lcd.clear();
+
+    //print values
     lcd.setCursor(4, 0);
     lcd.print("Total.: ");
     lcd.setCursor(5, 1);
     lcd.print(total);
+
+    //print units
     lcd.setCursor(10, 1);
     lcd.print("kg");
 }
 
+/// read analog data and store its in an vector
 void readData() {
     for (int i = 0; i < BUFFER_SIZE; i++) {
         dataDe[i] = analogRead(FE_PORT) - 511;
@@ -204,6 +221,8 @@ void readData() {
 }
 
 
+/// get the current analog data and store its to EEPROM
+/// this value will be subtract from de current data that is being redden
 void tara() {
     lcd.clear();
     lcd.setCursor(0, 4);
@@ -223,6 +242,8 @@ void tara() {
     EEPROM.write(7,taraTd);
 }
 
+/// process data, calculating media movel,
+/// removing tara, and converting to kg
 void processData() {
     de = (float(mediaMovel(dataDe) - taraDe)) * calibrationFactorDe;
     dd = (float(mediaMovel(dataDd) - taraDd)) * calibrationFactorDd;
@@ -232,6 +253,7 @@ void processData() {
     total = total == 0 ? 1 : total;
 }
 
+/// calculate media movel of an vector
 int32_t mediaMovel(int32_t *array) {
     int32_t media = 0;
     for (int i = 0; i < BUFFER_SIZE; i++) {

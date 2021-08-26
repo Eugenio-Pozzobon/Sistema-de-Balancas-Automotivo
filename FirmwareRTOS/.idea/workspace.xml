@@ -12,11 +12,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d58e6fb9-a0b1-4e7b-9bd7-79215165b9e7" name="Changes" comment="main files">
+    <list default="true" id="d58e6fb9-a0b1-4e7b-9bd7-79215165b9e7" name="Changes" comment="proteus final">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/FreeRTOS/examples/AnalogRead_DigitalRead/AnalogRead_DigitalRead.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/FreeRTOS/examples/AnalogRead_DigitalRead/AnalogRead_DigitalRead.ino" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/FreeRTOS/examples/GoldilocksAnalogueTestSuite/GoldilocksAnalogueTestSuite.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/FreeRTOS/examples/GoldilocksAnalogueTestSuite/GoldilocksAnalogueTestSuite.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Hardware/Last Loaded hardware.pdsbak" beforeDir="false" afterPath="$PROJECT_DIR$/../Hardware/Last Loaded hardware.pdsbak" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Hardware/hardware.pdsprj" beforeDir="false" afterPath="$PROJECT_DIR$/../Hardware/hardware.pdsprj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Hardware/hardware.pdsprj.DESKTOP-D4OIEET.eugen.workspace" beforeDir="false" afterPath="$PROJECT_DIR$/../Hardware/hardware.pdsprj.DESKTOP-D4OIEET.eugen.workspace" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,15 +50,13 @@
     <property name="cmake.loaded.for.project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="serialMonitor.commands" value="a" />
-    <property name="settings.editor.selected.configurable" value="pyconsole" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="ReaderModeSettings">
+    <option name="showRenderedDocs" value="false" />
   </component>
   <component name="RunManager" selected="PlatformIO.PlatformIO Upload">
     <configuration name="Z_DUMMY_TARGET" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FirmwareRTOS" TARGET_NAME="Z_DUMMY_TARGET" CONFIG_NAME="uno" RUN_TARGET_PROJECT_NAME="FirmwareRTOS" RUN_TARGET_NAME="Z_DUMMY_TARGET">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -90,6 +92,7 @@
       <updated>1629951233664</updated>
       <workItem from="1629951235156" duration="3532000" />
       <workItem from="1629969401514" duration="43000" />
+      <workItem from="1630000465754" duration="1168000" />
     </task>
     <task id="LOCAL-00001" summary="merging basic functions and files&#10;updating hardware simulation inside proteus">
       <created>1629952434801</created>
@@ -105,7 +108,21 @@
       <option name="project" value="LOCAL" />
       <updated>1629997631108</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="eeprom">
+      <created>1629998922748</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1629998922748</updated>
+    </task>
+    <task id="LOCAL-00004" summary="proteus final">
+      <created>1629999014675</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1629999014675</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,7 +143,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merging basic functions and files&#10;updating hardware simulation inside proteus" />
     <MESSAGE value="main files" />
-    <option name="LAST_COMMIT_MESSAGE" value="main files" />
+    <MESSAGE value="eeprom" />
+    <MESSAGE value="proteus final" />
+    <option name="LAST_COMMIT_MESSAGE" value="proteus final" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

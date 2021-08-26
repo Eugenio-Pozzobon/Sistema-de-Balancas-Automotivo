@@ -56,7 +56,7 @@ static uint8_t * Buff = NULL; /* Put a working buffer on heap later (with pvPort
 uint8_t const chipSelect = 14;
 
 // Create a Semaphore binary flag for the Serial Port. To ensure only single access.
-SemaphoreHandle_t xSerialSemaphore;
+SemaphoreHandle_t threadSemaphore;
 
 // define two tasks to operate this test suite.
 static void TaskReport( void *pvParameters ); // Report on the status reguarly using USART.
@@ -96,11 +96,11 @@ void setup() {
 
   // Semaphores are useful to stop a task proceeding, where it should be stopped because it is using a resource, such as the Serial port.
   // But they should only be used whilst the scheduler is running.
-  if ( xSerialSemaphore == NULL )          // Check to see if the Serial Semaphore has not been created.
+  if (threadSemaphore == NULL )          // Check to see if the Serial Semaphore has not been created.
   {
-    xSerialSemaphore = xSemaphoreCreateMutex(); // mutex semaphore for Serial Port
-    if ( ( xSerialSemaphore ) != NULL )
-      xSemaphoreGive( ( xSerialSemaphore ) );  // make the Serial Port available
+      threadSemaphore = xSemaphoreCreateMutex(); // mutex semaphore for Serial Port
+    if (( threadSemaphore ) != NULL )
+      xSemaphoreGive( ( threadSemaphore ) );  // make the Serial Port available
   }
 
   SPI.begin(); // warm up the SPI interface, so it can be used for the SPI RAM testing.
@@ -214,7 +214,7 @@ static void TaskAnalogue(void *pvParameters) // Prepare the DAC
 
   // See if we can obtain the Serial Semaphore.
   // If the semaphore is not available, wait 5 ticks to see if it becomes free.
-  if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t ) 5 ) == pdTRUE )
+  if (xSemaphoreTake(threadSemaphore, ( TickType_t ) 5 ) == pdTRUE )
   {
     // We were able to obtain the semaphore and can now access the shared resource.
     // We want to have the Serial Port for us alone, as it takes some time to print,
@@ -246,7 +246,7 @@ static void TaskAnalogue(void *pvParameters) // Prepare the DAC
 
     Serial.println(F("done."));
 
-    xSemaphoreGive( xSerialSemaphore ); // Now free the Serial Port for others.
+    xSemaphoreGive(threadSemaphore ); // Now free the Serial Port for others.
   }
 
   //  vTaskSuspend(NULL);           // Well, we're pretty much done here. Let's suspend the Task.
@@ -256,7 +256,7 @@ static void TaskAnalogue(void *pvParameters) // Prepare the DAC
   {
     // See if we can obtain the Serial Semaphore.
     // If the semaphore is not available, wait 5 ticks to see if it becomes free.
-    if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t ) 5 ) == pdTRUE )
+    if (xSemaphoreTake(threadSemaphore, ( TickType_t ) 5 ) == pdTRUE )
     {
       // We were able to obtain the semaphore and can now access the shared resource.
       // We want to have the Serial Port for us alone, as it takes some time to print,
@@ -265,7 +265,7 @@ static void TaskAnalogue(void *pvParameters) // Prepare the DAC
       Serial.print(F("Audio Stack HighWater @ "));
       Serial.println(uxTaskGetStackHighWaterMark(NULL));
 
-      xSemaphoreGive( xSerialSemaphore ); // Now free the Serial Port for others.
+      xSemaphoreGive(threadSemaphore ); // Now free the Serial Port for others.
     }
     xTaskDelayUntil( &xLastWakeTime, ( 8192 / portTICK_PERIOD_MS ) );
   }
@@ -287,7 +287,7 @@ static void TaskReport(void *pvParameters) // report on the status of the device
   {
     // See if we can obtain the Serial Semaphore.
     // If the semaphore is not available, wait 5 ticks to see if it becomes free.
-    if ( xSemaphoreTake( xSerialSemaphore, ( TickType_t ) 5 ) == pdTRUE )
+    if (xSemaphoreTake(threadSemaphore, ( TickType_t ) 5 ) == pdTRUE )
     {
       // We were able to obtain the semaphore and can now access the shared resource.
       // We want to have the Serial Port for us alone, as it takes some time to print,
@@ -300,7 +300,7 @@ static void TaskReport(void *pvParameters) // report on the status of the device
       time((time_t *)&currentTick);
       Serial.println(ctime( (time_t *)&currentTick));
 
-      xSemaphoreGive( xSerialSemaphore ); // Now free the Serial Port for others.
+      xSemaphoreGive(threadSemaphore ); // Now free the Serial Port for others.
     }
     xTaskDelayUntil( &xLastWakeTime, ( 2048 / portTICK_PERIOD_MS ) );
   }
