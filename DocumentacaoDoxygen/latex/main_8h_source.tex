@@ -1,0 +1,73 @@
+\doxysection{main.\+h}
+\label{main_8h_source}\index{C:/Users/maure/Documents/GitHub/Sistema-\/de-\/Balancas-\/Automotivo/FirmwareRTOS/src/main.h@{C:/Users/maure/Documents/GitHub/Sistema-\/de-\/Balancas-\/Automotivo/FirmwareRTOS/src/main.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//}}
+\DoxyCodeLine{2 \textcolor{comment}{// Created by eugen on 26/08/2021.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef FIRMWARERTOS\_MAIN\_H}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define FIRMWARERTOS\_MAIN\_H}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#endif FIRMWARERTOS\_MAIN\_H}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{comment}{// include the library code:}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <LiquidCrystal.h>}}
+\DoxyCodeLine{11 \textcolor{comment}{//\#define DEBUG\_TIME}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define FE\_PORT 0}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define FD\_PORT 1}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define TE\_PORT 2}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define TD\_PORT 3}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define FUNC\_PIN   2}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define T\_PIN      3}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#define CAL\_PIN    4}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#define BUFFER\_SIZE 32}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define bitshift    5}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#define UPDATE\_LCD\_HZ 25}}
+\DoxyCodeLine{24 \textcolor{comment}{// initialize the library by associating any needed LCD interface pin}}
+\DoxyCodeLine{25 \textcolor{comment}{// with the arduino pin number it is connected to}}
+\DoxyCodeLine{26 \textcolor{keyword}{const} \textcolor{keywordtype}{int} rs = 13, en = 12, d4 = 11, d5 = 10, d6 = 9, d7 = 8;}
+\DoxyCodeLine{27 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{const} \textcolor{keywordtype}{double} calibrationFactorDe = 0.48481;}
+\DoxyCodeLine{30 \textcolor{keyword}{const} \textcolor{keywordtype}{double} calibrationFactorDd = 0.48481;}
+\DoxyCodeLine{31 \textcolor{keyword}{const} \textcolor{keywordtype}{double} calibrationFactorTe = 0.48481;}
+\DoxyCodeLine{32 \textcolor{keyword}{const} \textcolor{keywordtype}{double} calibrationFactorTd = 0.48481;}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} latupdateTime = 0;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keywordtype}{byte} state = 0;}
+\DoxyCodeLine{37 \textcolor{keywordtype}{boolean} funcState = \textcolor{keyword}{false};}
+\DoxyCodeLine{38 \textcolor{keywordtype}{boolean} tState = \textcolor{keyword}{false};}
+\DoxyCodeLine{39 \textcolor{keywordtype}{boolean} calState = \textcolor{keyword}{false};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 int32\_t dataDe[BUFFER\_SIZE];}
+\DoxyCodeLine{42 int32\_t dataDd[BUFFER\_SIZE];}
+\DoxyCodeLine{43 int32\_t dataTe[BUFFER\_SIZE];}
+\DoxyCodeLine{44 int32\_t dataTd[BUFFER\_SIZE];}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{keywordtype}{double} taraDe = 0;}
+\DoxyCodeLine{47 \textcolor{keywordtype}{double} taraDd = 0;}
+\DoxyCodeLine{48 \textcolor{keywordtype}{double} taraTe = 0;}
+\DoxyCodeLine{49 \textcolor{keywordtype}{double} taraTd = 0;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{keywordtype}{double} total = 0;}
+\DoxyCodeLine{52 \textcolor{keywordtype}{double} de = 0;}
+\DoxyCodeLine{53 \textcolor{keywordtype}{double} dd = 0;}
+\DoxyCodeLine{54 \textcolor{keywordtype}{double} te = 0;}
+\DoxyCodeLine{55 \textcolor{keywordtype}{double} td = 0;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{comment}{//void printScales();}}
+\DoxyCodeLine{58 \textcolor{comment}{//void printLong();}}
+\DoxyCodeLine{59 \textcolor{comment}{//void printLat();}}
+\DoxyCodeLine{60 \textcolor{comment}{//void printTotal();}}
+\DoxyCodeLine{61 \textcolor{comment}{//void tara();}}
+\DoxyCodeLine{62 \textcolor{comment}{//void calibracao();}}
+\DoxyCodeLine{63 \textcolor{comment}{//}}
+\DoxyCodeLine{64 \textcolor{comment}{//void readButtons();}}
+\DoxyCodeLine{65 \textcolor{comment}{//void readData();}}
+\DoxyCodeLine{66 \textcolor{comment}{//void processData();}}
+\DoxyCodeLine{67 \textcolor{comment}{//int32\_t mediaMovel(int32\_t *array);}}
+
+\end{DoxyCode}
