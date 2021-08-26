@@ -49,15 +49,32 @@ double td = 0;
 #include <Arduino_FreeRTOS.h>
 
 // define two tasks for Blink & AnalogRead
-void TaskBlink( void *pvParameters ); 
+void TaskBlink( void *pvParameters );
 void TaskUpdateLCD( void *pvParameters );
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-  
+
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
   
+  // set up the LCD's number of columns and rows:
+  for (int i = 0; i < BUFFER_SIZE; i++) {
+    dataDe[i] = 0;
+    dataDd[i] = 0;
+    dataTe[i] = 0;
+    dataTd[i] = 0;
+  }
+
+  lcd.begin(16, 2);
+  lcd.clear();
+
+  lcd.setCursor(4, 0); lcd.print("INICIANDO");
+
+  pinMode(FUNC_PIN, INPUT_PULLUP);
+  pinMode(T_PIN, INPUT_PULLUP);
+  pinMode(CAL_PIN, INPUT_PULLUP);
+
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB, on LEONARDO, MICRO, YUN, and other 32u4 based boards.
   }
@@ -95,29 +112,29 @@ void TaskBlink(void *pvParameters)  // This is a task.
 {
   (void) pvParameters;
 
-/*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
+  /*
+    Blink
+    Turns on an LED on for one second, then off for one second, repeatedly.
 
-  Most Arduinos have an on-board LED you can control. On the UNO, LEONARDO, MEGA, and ZERO 
-  it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN takes care 
-  of use the correct LED pin whatever is the board used.
-  
-  The MICRO does not have a LED_BUILTIN available. For the MICRO board please substitute
-  the LED_BUILTIN definition with either LED_BUILTIN_RX or LED_BUILTIN_TX.
-  e.g. pinMode(LED_BUILTIN_RX, OUTPUT); etc.
-  
-  If you want to know what pin the on-board LED is connected to on your Arduino model, check
-  the Technical Specs of your board  at https://www.arduino.cc/en/Main/Products
-  
-  This example code is in the public domain.
+    Most Arduinos have an on-board LED you can control. On the UNO, LEONARDO, MEGA, and ZERO
+    it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN takes care
+    of use the correct LED pin whatever is the board used.
 
-  modified 8 May 2014
-  by Scott Fitzgerald
-  
-  modified 2 Sep 2016
-  by Arturo Guadalupi
-*/
+    The MICRO does not have a LED_BUILTIN available. For the MICRO board please substitute
+    the LED_BUILTIN definition with either LED_BUILTIN_RX or LED_BUILTIN_TX.
+    e.g. pinMode(LED_BUILTIN_RX, OUTPUT); etc.
+
+    If you want to know what pin the on-board LED is connected to on your Arduino model, check
+    the Technical Specs of your board  at https://www.arduino.cc/en/Main/Products
+
+    This example code is in the public domain.
+
+    modified 8 May 2014
+    by Scott Fitzgerald
+
+    modified 2 Sep 2016
+    by Arturo Guadalupi
+  */
 
   // initialize digital LED_BUILTIN on pin 13 as an output.
   pinMode(LED_BUILTIN, OUTPUT);
@@ -134,40 +151,40 @@ void TaskBlink(void *pvParameters)  // This is a task.
 void TaskUpdateLCD(void *pvParameters)  // This is a task.
 {
   (void) pvParameters;
-  
+
   for (;;)
   {
-    if((millis() - latupdateTime) > 1000/UPDATE_LCD_HZ){
-        latupdateTime = millis();
-        state += (funcState? 1:0);
-        state = state > 3? 0: state;
+    if ((millis() - latupdateTime) > 1000 / UPDATE_LCD_HZ) {
+      latupdateTime = millis();
+      state += (funcState ? 1 : 0);
+      state = state > 3 ? 0 : state;
 
-        if(tState){
-            tara();
-        }else{
-            switch (state) {
-                case 0:
-                    printScales();
-                    break;
+      if (tState) {
+        tara();
+      } else {
+        switch (state) {
+          case 0:
+            printScales();
+            break;
 
-                    case 1:
-                        printLat();
-                        break;
+          case 1:
+            printLat();
+            break;
 
-                        case 2:
-                            printLong();
-                            break;
+          case 2:
+            printLong();
+            break;
 
-                            case 3:
-                                printTotal();
-                                break;
+          case 3:
+            printTotal();
+            break;
 
-                                default:
-                                    break;
+          default:
+            break;
 
-            }
-            funcState? delay(100):delay(1);
         }
+        funcState ? delay(100) : delay(1);
+      }
     }
   }
 }
@@ -193,7 +210,7 @@ void TaskUpdateLCD(void *pvParameters)  // This is a task.
 //    lcd.setCursor(0, 0);
 //    lcd.print(readTime_);
 //#else
-//    
+//
 //#endif
 //}
 //
@@ -203,44 +220,44 @@ void TaskUpdateLCD(void *pvParameters)  // This is a task.
 //    calState = !digitalRead(CAL_PIN);
 //}
 //
-void printScales(){
-    lcd.clear();
-    lcd.setCursor(0, 0); lcd.print((de));  //lcd.print(analogRead(FE_PORT)-512);//
-    lcd.setCursor(9, 0); lcd.print((dd));  //lcd.print(analogRead(FD_PORT)-512);//
-    lcd.setCursor(0, 1); lcd.print((te));  //lcd.print(analogRead(TE_PORT)-512);//
-    lcd.setCursor(9, 1); lcd.print((td));  //lcd.print(analogRead(TD_PORT)-512);//
+void printScales() {
+  lcd.clear();
+  lcd.setCursor(0, 0); lcd.print((de));  //lcd.print(analogRead(FE_PORT)-512);//
+  lcd.setCursor(9, 0); lcd.print((dd));  //lcd.print(analogRead(FD_PORT)-512);//
+  lcd.setCursor(0, 1); lcd.print((te));  //lcd.print(analogRead(TE_PORT)-512);//
+  lcd.setCursor(9, 1); lcd.print((td));  //lcd.print(analogRead(TD_PORT)-512);//
 
-    lcd.setCursor(5, 0); lcd.print("kg");
-    lcd.setCursor(5, 1); lcd.print("kg");
-    lcd.setCursor(14, 0); lcd.print("kg");
-    lcd.setCursor(14, 1); lcd.print("kg");
+  lcd.setCursor(5, 0); lcd.print("kg");
+  lcd.setCursor(5, 1); lcd.print("kg");
+  lcd.setCursor(14, 0); lcd.print("kg");
+  lcd.setCursor(14, 1); lcd.print("kg");
 }
 //
-void printLong(){
-    lcd.clear();
-    lcd.setCursor(0, 0); lcd.print("Diant.: ");
-    lcd.setCursor(0, 1); lcd.print("Tras.: ");
-    lcd.setCursor(10, 0); lcd.print(int((de+dd)*100/total));
-    lcd.setCursor(10, 1); lcd.print(int((te+td)*100/total));
-    lcd.setCursor(15, 0); lcd.print("%");
-    lcd.setCursor(15, 1); lcd.print("%");
+void printLong() {
+  lcd.clear();
+  lcd.setCursor(0, 0); lcd.print("Diant.: ");
+  lcd.setCursor(0, 1); lcd.print("Tras.: ");
+  lcd.setCursor(10, 0); lcd.print(int((de + dd) * 100 / total));
+  lcd.setCursor(10, 1); lcd.print(int((te + td) * 100 / total));
+  lcd.setCursor(15, 0); lcd.print("%");
+  lcd.setCursor(15, 1); lcd.print("%");
 }
 
-void printLat(){
-    lcd.clear();
-    lcd.setCursor(0, 0); lcd.print("Esq.: ");
-    lcd.setCursor(11, 0); lcd.print("Dir.: ");
-    lcd.setCursor(0, 1); lcd.print(int((de+te)*100/total));
-    lcd.setCursor(11, 1); lcd.print(int((dd+td)*100/total));
-    lcd.setCursor(4, 1); lcd.print("%");
-    lcd.setCursor(15, 1); lcd.print("%");
+void printLat() {
+  lcd.clear();
+  lcd.setCursor(0, 0); lcd.print("Esq.: ");
+  lcd.setCursor(11, 0); lcd.print("Dir.: ");
+  lcd.setCursor(0, 1); lcd.print(int((de + te) * 100 / total));
+  lcd.setCursor(11, 1); lcd.print(int((dd + td) * 100 / total));
+  lcd.setCursor(4, 1); lcd.print("%");
+  lcd.setCursor(15, 1); lcd.print("%");
 }
 
-void printTotal(){
-    lcd.clear();
-    lcd.setCursor(4, 0); lcd.print("Total.: ");
-    lcd.setCursor(5, 1); lcd.print(total);
-    lcd.setCursor(10, 1); lcd.print("kg");
+void printTotal() {
+  lcd.clear();
+  lcd.setCursor(4, 0); lcd.print("Total.: ");
+  lcd.setCursor(5, 1); lcd.print(total);
+  lcd.setCursor(10, 1); lcd.print("kg");
 }
 
 //void readData(){
@@ -253,14 +270,14 @@ void printTotal(){
 //    processData();
 //}
 
-void tara(){
-    lcd.clear();
-    lcd.setCursor(0, 4); lcd.print("TARANDO");
-    delay(100);
-    taraDe += float(de/calibrationFactorDe);
-    taraDd += float(dd/calibrationFactorDd);
-    taraTe += float(te/calibrationFactorTe);
-    taraTd += float(td/calibrationFactorTd);
+void tara() {
+  lcd.clear();
+  lcd.setCursor(0, 4); lcd.print("TARANDO");
+  delay(100);
+  taraDe += float(de / calibrationFactorDe);
+  taraDd += float(dd / calibrationFactorDd);
+  taraTe += float(te / calibrationFactorTe);
+  taraTd += float(td / calibrationFactorTd);
 }
 //
 //
