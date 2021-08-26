@@ -25,13 +25,11 @@ void setup() {
     taraTe = EEPROM.read(4) << 8 | EEPROM.read(5);
     taraTd = EEPROM.read(6) << 8 | EEPROM.read(7);
 
-    if (threadSemaphore == NULL) { ///verifica se o semaforo da porta serial ja existe
+    if (threadSemaphore == NULL) {
         threadSemaphore = xSemaphoreCreateMutex();  ///cria a mutex
     }
-
-
     if ((threadSemaphore) != NULL)
-        xSemaphoreGive((threadSemaphore));  ///torna a porta serial disponivel
+        xSemaphoreGive((threadSemaphore));
 
     /// Now set up two tasks to run independently.
     xTaskCreate(

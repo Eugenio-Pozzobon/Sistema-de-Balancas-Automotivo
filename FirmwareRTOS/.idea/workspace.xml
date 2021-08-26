@@ -14,13 +14,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d58e6fb9-a0b1-4e7b-9bd7-79215165b9e7" name="Changes" comment="proteus final">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/FreeRTOS/examples/AnalogRead_DigitalRead/AnalogRead_DigitalRead.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/FreeRTOS/examples/AnalogRead_DigitalRead/AnalogRead_DigitalRead.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/FreeRTOS/examples/GoldilocksAnalogueTestSuite/GoldilocksAnalogueTestSuite.ino" beforeDir="false" afterPath="$PROJECT_DIR$/lib/FreeRTOS/examples/GoldilocksAnalogueTestSuite/GoldilocksAnalogueTestSuite.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Hardware/Last Loaded hardware.pdsbak" beforeDir="false" afterPath="$PROJECT_DIR$/../Hardware/Last Loaded hardware.pdsbak" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Hardware/hardware.pdsprj" beforeDir="false" afterPath="$PROJECT_DIR$/../Hardware/hardware.pdsprj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Hardware/hardware.pdsprj.DESKTOP-D4OIEET.eugen.workspace" beforeDir="false" afterPath="$PROJECT_DIR$/../Hardware/hardware.pdsprj.DESKTOP-D4OIEET.eugen.workspace" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
