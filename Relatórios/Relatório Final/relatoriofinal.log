@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6.28) (preloaded format=pdflatex 2021.6.28)  27 AUG 2021 21:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6.28) (preloaded format=pdflatex 2021.6.28)  28 AUG 2021 12:48
 entering extended mode
 **./relatoriofinal.tex
 (relatoriofinal.tex
@@ -599,50 +599,61 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout6 = `relatoriofinal.toc'.
 
  [2]
-<cornerweithscaleexample.jpg, id=107, 1471.4975pt x 1503.6175pt>
+<cornerweithscaleexample.jpg, id=112, 1471.4975pt x 1503.6175pt>
 File: cornerweithscaleexample.jpg Graphic file (type jpg)
 <use cornerweithscaleexample.jpg>
 Package pdftex.def Info: cornerweithscaleexample.jpg  used on input line 50.
 (pdftex.def)             Requested size: 170.71652pt x 174.4381pt.
- [3 <./cornerweithscaleexample.jpg>]
 
-LaTeX Warning: Reference `' on page 4 undefined on input line 87.
 
-<hardwareA4.pdf, id=118, 729.72626pt x 512.91624pt>
+LaTeX Warning: Reference `label' on page 3 undefined on input line 67.
+
+[3 <./cornerweithscaleexample.jpg>]
+
+LaTeX Warning: Reference `' on page 4 undefined on input line 73.
+
+
+LaTeX Warning: Reference `' on page 4 undefined on input line 93.
+
+
+LaTeX Warning: Reference `' on page 4 undefined on input line 93.
+
+[4]
+<hardwareA4.pdf, id=132, 729.72626pt x 512.91624pt>
 File: hardwareA4.pdf Graphic file (type pdf)
 <use hardwareA4.pdf>
-Package pdftex.def Info: hardwareA4.pdf  used on input line 99.
+Package pdftex.def Info: hardwareA4.pdf  used on input line 113.
 (pdftex.def)             Requested size: 411.14528pt x 288.98427pt.
-[4]
-<simulacao.jpg, id=129, 730.1679pt x 513.3579pt>
+ [5 <./hardwareA4.pdf>]
+<simulacao.jpg, id=161, 730.1679pt x 513.3579pt>
 File: simulacao.jpg Graphic file (type jpg)
 <use simulacao.jpg>
-Package pdftex.def Info: simulacao.jpg  used on input line 142.
+Package pdftex.def Info: simulacao.jpg  used on input line 143.
 (pdftex.def)             Requested size: 411.14528pt x 289.06076pt.
- [5 <./hardwareA4.pdf>] [6 <./simulacao.jpg>] (relatoriofinal.aux)
+ [6 <./simulacao.jpg>] [7] (relatoriofinal.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `relatoriofinal.out' has not changed.
-(rerunfilecheck)             Checksum: 6062171E5B6DB5D11892368B9FE2F3FF;2729.
+(rerunfilecheck)             Checksum: 6764574E44385516821C94121281755B;2890.
  ) 
 Here is how much of TeX's memory you used:
- 15178 strings out of 478864
- 239983 string characters out of 2865145
- 627965 words of memory out of 3000000
- 32846 multiletter control sequences out of 15000+600000
+ 15183 strings out of 478864
+ 240044 string characters out of 2865145
+ 626961 words of memory out of 3000000
+ 32849 multiletter control sequences out of 15000+600000
  412709 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,7n,80p,620b,374s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,7n,80p,620b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
 <E:/mikTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><E:/mikTex/fonts/type1/p
 ublic/amsfonts/cm/cmmi12.pfb><E:/mikTex/fonts/type1/public/amsfonts/cm/cmmi8.pf
 b><E:/mikTex/fonts/type1/public/amsfonts/cm/cmr12.pfb><E:/mikTex/fonts/type1/pu
 blic/amsfonts/cm/cmr17.pfb><E:/mikTex/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ><E:/mikTex/fonts/type1/public/amsfonts/cm/cmti12.pfb><E:/mikTex/fonts/type1/pu
 blic/amsfonts/cm/cmtt12.pfb>
-Output written on relatoriofinal.pdf (6 pages, 1274984 bytes).
+Output written on relatoriofinal.pdf (7 pages, 1278231 bytes).
 PDF statistics:
- 203 PDF objects out of 1000 (max. 8388607)
- 30 named destinations out of 1000 (max. 500000)
- 160 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 216 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
+ 168 words of extra memory for PDF output out of 10000 (max. 10000000)
 

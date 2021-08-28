@@ -64,7 +64,13 @@
 	
 	\subsection{Célula de Carga}
 	
+	A célula de carga é um sensor que possibilita aferir a força aplicada sobre um material. É um composto que, quando expandido, aumenta a sua resistência elétrica interna. Essa variação de Resistência pode ser lida por uma Ponte de Wheatstone. A lâmina do sensor pode ser colada em uma peça metálica que estará exposta a tensão e deformação, como a peça da figura \ref{label}
+	
 	\subsection{Ponte de Wheatstone}
+	
+	A ponte de Wheatstone é uma forma comumente utilizada para medição de variação de resistência. É possível agrupar 4 células de carga que estão montadas em uma balança comercial em uma ponte completa. A ponte completa impede variações de medição em função de situações ambientais como temperatura, e, portanto, é uma ótima forma de aferir a variação da resistência da ponte. 
+	
+	O circuito da ponte, como demonstrado na figura \ref{}, possibilita que, com uma tensão de excitação de entrada, seja possível obter uma oscilação da tensão de saída conforme variam-se as resistências. Se as 4 resistências são sensíveis ao peso, então a oscilação do peso afetará a tensão de saída. Essa tensão de saída é dada pela sensibilidade da ponte.
 	
 	\subsection{Amplificador de Instrumentação}
 	Amplificadores de instrumentação são CIs que amplificam a tensão diferencial de entrada, mantendo alta impedância de entrada, elevada rejeição a sinais de modo comum, e um ganho ajustável por um resistor de ganho. 
@@ -84,7 +90,7 @@
 	Esse controlador possui 6 entradas analógicas em um ADC (Conversor Analógico Digital) que podem ler um sinal com até 10bits de resolução. Considerando que essa unidade consegue ler tensões de 0 a 5V, a resolução de leitura será $ 5\div 1024 = 4,88mV  $
 	
 	\subsubsection{Amplificador de Instrumentação}
-	A leitura dos dados das 4 células de carga que são agrupadas em uma balança comercial como a da figura \ref{} pode ser feita com uma ponte de Wheatstone. Quando um peso é inserido sobre a balança, isso gera uma oscilação de até $ 1mV $ por $ 1V $ na alimentação. Com uma tensão de excitação da ponte igual a $ 1,3V $ o resultado será uma oscilação de tensão de $ \pm 1,3mV $ que precisa ser amplificado para uma correta leitura para o controlador. 
+	A leitura dos dados das 4 células de carga que são agrupadas em uma balança comercial como a da Figura \ref{} pode ser feita com uma ponte de Wheatstone (Figura \ref{}). Quando um peso é inserido sobre a balança, isso gera uma oscilação de até $ 1mV $ por $ 1V $ na alimentação. Com uma tensão de excitação da ponte igual a $ 1,3V $ o resultado será uma oscilação de tensão de $ \pm 1,3mV $ que precisa ser amplificado para uma correta leitura para o controlador. 
 	
 	Para isso, foi selecionado o amplificador AD623 que trabalha com uma faixa de ganho de 1 a 1000. A equação \ref{eq:ganho} define o valor de resistor conforme o ganho selecionado. Para uma boa operação, é inserido uma tensão de offset de 2.5V, possibilitando uma leitura negativa da célula, de -100 a 100kg, onde 0kg equivale a 2,5kg. Considerando que o sistema exige uma resolução de 0,5kg, e a resolução mínima de leitura do controlador é $ 5mv $, então, para uma margem de $ \pm100kg $ é preciso uma oscilação na entrada de 1V. Assim, +100kg equivale a 3,5V.
 	
@@ -93,26 +99,21 @@
 		\label{eq:ganho}
 	\end{equation}	
 
-	
-	\begin{figure}[!htb]
-		\centering
-		\includegraphics[width=.85\linewidth]{hardwareA4}
-		\caption{Sistema comercial de Balanças}
-		\label{fig:hardwarefinal}
-	\end{figure}
-
-	
-
-
 
 
 	Então, calcula-se que o ganho necessário é de 1V/1,3mV = 770. Assim, pela equação \ref{eq:ganho}, o resistor de ganho do amplificador $ Rg = 130 $. 
 	
 	
+	\subsubsection{Outros componentes}
 	
-
-
-
+	Para o funcionamento do circuito, resta então botões para receber as entradas do usuário, e um LCD que será o display dessas informações. Assim, cria-se o diagrama do sistema (Figura \ref{fig:hardwarefinal}). 
+	
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=.85\linewidth]{hardwareA4}
+		\caption{Diagrama Final do Circuito}
+		\label{fig:hardwarefinal}
+	\end{figure}
 	
 	\subsection{Ambiente de Desenvolvimento}
 	
@@ -147,7 +148,7 @@
 	Além disso, a tara armazenada na EEPROM permitiu maior dinamicidade nas medições, evitando que uma configuração anterior fosse perdida ao reiniciar o sistema, mesmo na simulação do Proteus.  
 	
 	\section{Conclusão}
-	Foi possível com esse trabalho operacionalizar de forma satisfatória o sistema de instrumentação usando um sistema operacional de tempo real. Algumas melhorias de implementação do sistema talvez pudessem abordar a subdivisão das tasks de forma mais profunda, separando leitura do processamento. Contudo, é importante cuidar para que isso não retome o problema discutido na seção \ref{poblemas} e melhore o processamento e armazenamento dos dados de Tara, que também pode ser feito em uma \textit{thread} separada. 
+	Foi possível, com esse trabalho, operacionalizar de forma satisfatória o sistema de instrumentação usando um sistema operacional de tempo real. Algumas melhorias de implementação do sistema talvez pudessem abordar a subdivisão das tasks de forma mais profunda, separando leitura do processamento. Contudo, é importante cuidar para que isso não retome o problema discutido na seção \ref{poblemas} e melhore o processamento e armazenamento dos dados de Tara, que também pode ser feito em uma \textit{thread} separada. 
 	
 	
 \end{document}
