@@ -1,0 +1,153 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb} 
+\usepackage{graphicx} 
+\usepackage{float}
+\usepackage[brazil]{babel}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{verbatim}
+\usepackage{minted}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	filecolor=black,      
+	urlcolor=blue,
+}
+
+\DeclareMathOperator{\sen}{sen}
+\renewcommand{\sin}{\sen}
+\DeclareMathOperator{\arcsen}{arcsen}
+\renewcommand{\arcsin}{\arcsen}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\arctg}{arctg}
+\renewcommand{\arctan}{\arctg}
+
+\title{Projeto de Sistemas Embarcados\\Relatório Final}
+\author{Eugênio Piveta Pozzobon\\Mauren Walter D'Avila}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\newpage
+	\tableofcontents
+	\newpage
+	
+	\section{Introdução}
+	
+	O projeto desenvolvido consiste em um sistema de balança para balanceamento de um veículo (Figura \ref{fig:cornerweithscaleexample}). Esse sistema é amplamente utilizado em equipes de corrida para ajustar a suspensão do veículo para competições, provendo um ajuste fino que pode ser desenvolvido para cada piloto. O Ganho de performance dado por esse ajuste pode fazer a diferença entre vitória e derrota. 
+	
+	\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=6cm]{
+			cornerweithscaleexample}
+		\caption{Sistema comercial de Balanças}
+		\label{fig:cornerweithscaleexample}
+	\end{figure}
+	
+	A entrada de dados seria feita por um chip HX711, porém preferiu-se realizar uma eletrônica de instrumentação para minimizar o uso de bibliotecas externas e poder dimensionar um sistema adequado para a aplicação. 
+	
+	Processamento e aramazenamento de dados ocorre pra ler o dado do chip e efetuar a conversão do dado bruto em um peso em uma determinada unidade. Além disso, as balanças precisam ser calibradas com um peso de calibração (5kg) e com isso se obtêm um dado de calibração que é armazenado na \textit{EEPROM} do \textit{ATMEGA328P} para ser utilizado em todas as medições futuras das balanças. 
+	
+	\subsection{Github}
+	O Projeto foi hospedado no Github e pode ser acessado neste link: \url{https://github.com/Eugenio-Pozzobon/Sistema-de-Balancas-Automotivo}
+	
+	\section{Desenvolvimento Teórico}
+	Um sistema que busca realizar a leitura da massa pode usar uma variedade de categorias de sensores, mas a escolhida para este projeto foi uma célula de carga.
+	
+	\subsection{Célula de Carga}
+	
+	\subsection{Ponte de Wheatstone}
+	
+	\subsection{Amplificador de Instrumentação}
+	Amplificadores de instrumentação são CIs que amplificam a tensão diferencial de entrada, mantendo alta impedância de entrada, elevada rejeição a sinais de modo comum, e um ganho ajustável por um resistor de ganho. 
+	
+	\subsection{FreeRTOS}
+	
+	% Mau
+	
+	\section{Desenvolvimento Prático}
+	
+	\subsection{Circuito}
+	O circuito foi desenvolvido usando o Proteus 8.9 para ser simulável em ambiente virtual. Conta com controladores e dispositivos passivos e ativos para montar o sistema de instrumentação embarcado.  
+	
+	\subsubsection{ATMEGA328P}
+	Um controlador de amplo acesso e com ampla documentação disponível é o Atmega 328p que embarca alguns modelos da Série Arduino. Esse controlador possui uma taxa de operação de 8 ou 16MHz que é configurável. Para o projeto, optou-se por simular com 16MHz usando um cristal oscilador acoplado com 2 capacitores de 22pF. Esse controlador também requer um resistor  de \textit{pull-up} na entrada de \textit{Reset}.
+	
+	Esse controlador possui 6 entradas analógicas em um ADC (Conversor Analógico Digital) que podem ler um sinal com até 10bits de resolução. Considerando que essa unidade consegue ler tensões de 0 a 5V, a resolução de leitura será $ 5\div 1024 = 4,88mV  $
+	
+	\subsubsection{Amplificador de Instrumentação}
+	A leitura dos dados das 4 células de carga que são agrupadas em uma balança comercial como a da figura \ref{} pode ser feita com uma ponte de Wheatstone. Quando um peso é inserido sobre a balança, isso gera uma oscilação de até $ 1mV $ por $ 1V $ na alimentação. Com uma tensão de excitação da ponte igual a $ 1,3V $ o resultado será uma oscilação de tensão de $ \pm 1,3mV $ que precisa ser amplificado para uma correta leitura para o controlador. 
+	
+	Para isso, foi selecionado o amplificador AD623 que trabalha com uma faixa de ganho de 1 a 1000. A equação \ref{eq:ganho} define o valor de resistor conforme o ganho selecionado. Para uma boa operação, é inserido uma tensão de offset de 2.5V, possibilitando uma leitura negativa da célula, de -100 a 100kg, onde 0kg equivale a 2,5kg. Considerando que o sistema exige uma resolução de 0,5kg, e a resolução mínima de leitura do controlador é $ 5mv $, então, para uma margem de $ \pm100kg $ é preciso uma oscilação na entrada de 1V. Assim, +100kg equivale a 3,5V.
+	
+	\begin{equation}
+		R_G = \dfrac{100k}{(G-1)}
+		\label{eq:ganho}
+	\end{equation}	
+
+	
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=.85\linewidth]{hardwareA4}
+		\caption{Sistema comercial de Balanças}
+		\label{fig:hardwarefinal}
+	\end{figure}
+
+	
+
+
+
+
+	Então, calcula-se que o ganho necessário é de 1V/1,3mV = 770. Assim, pela equação \ref{eq:ganho}, o resistor de ganho do amplificador $ Rg = 130 $. 
+	
+	
+	
+
+
+
+	
+	\subsection{Ambiente de Desenvolvimento}
+	
+	Foi escolhido utilizar a IDE Clion com Plugin PlatformIO devido a sua integração direta com o Github, possibilitando trabalho em conjunto de forma totalmente remota e compilando diretamente para a raiz de arquivos configurada no Proteus para realizar o upload do código do ATMEGA328P. Por meio desse plugin foi possível configurar um ambiente que rodasse, independente da máquina, tendo acesso as mesmas bibliotecas na raiz de armazenamento da pasta 'lib' e ainda possibilitando a execução de testes unitários com a biblioteca \textit{Unity}. 
+	
+	\subsection{Tasks FreeRTOS}
+	% Mau
+	
+	\subsubsection{Leitura de Dados e Processamento}
+	% Mau
+	
+	\subsubsection{Atualização do Display}
+	% Mau
+	
+	\subsection{Problemas encontrados}
+	\label{poblemas}
+	Tivemos algum problema de configuração e operacionalização da IDE escolhida, contudo, após os problemas serem resolvidos, foi muito mais prático de desenvolver o código quando comparamos com o processo da IDE do Arduíno. 
+
+	Além disso, normalmente a leitura e processamento de dados seria a thread mais importante, porém, quando o código é executado com essa ordem de prioridade, a thread para atualização do display nunca é executada. Uma saída encontrada e que funciona adequadamente foi executar um taskDelay na thread de atualização, na taxa de update desejado, e permitir que, durante esse delay, a thread de leitura e processamento seja executada. Dessa forma, não há desperdício de tempo na execução das threads.  
+	
+	
+	\section{Resultados Obtidos}
+	Com a correção dos problemas discutidos anteriormente, foi possível simular no Proteus o sistema, inserindo massa nas balanças e verificando os dados do LCD. O filtro digital de média móvel também atendeu as expectativas, pois, com ele, o ruído inserido na simulação não fez com que a massa medida oscilasse além de $ \pm 0,5V $. A figura \ref{fig:simulacao} demonstra a operação da simulação.
+	
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=.85\linewidth]{simulacao}
+		\caption{Sistema comercial de Balanças}
+		\label{fig:simulacao}
+	\end{figure}
+
+	Além disso, a tara armazenada na EEPROM permitiu maior dinamicidade nas medições, evitando que uma configuração anterior fosse perdida ao reiniciar o sistema, mesmo na simulação do Proteus.  
+	
+	\section{Conclusão}
+	Foi possível com esse trabalho operacionalizar de forma satisfatória o sistema de instrumentação usando um sistema operacional de tempo real. Algumas melhorias de implementação do sistema talvez pudessem abordar a subdivisão das tasks de forma mais profunda, separando leitura do processamento. Contudo, é importante cuidar para que isso não retome o problema discutido na seção \ref{poblemas} e melhore o processamento e armazenamento dos dados de Tara, que também pode ser feito em uma \textit{thread} separada. 
+	
+	
+\end{document}
