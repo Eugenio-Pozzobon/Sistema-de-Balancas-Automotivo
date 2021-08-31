@@ -12,7 +12,7 @@
 [[noreturn]] void TaskLeitura(void *pvParameters);
 [[noreturn]] void TaskUpdateLCD(void *pvParameters);
 
-SemaphoreHandle_t threadSemaphore; ///mutex que vai controlar porta serial
+SemaphoreHandle_t threadSemaphore; ///mutex que vai controlar a thread
 
 void setup() {
 
@@ -251,11 +251,11 @@ void processData() {
     total = total == 0 ? 1 : total;
 }
 
-/// calculate media movel of an vector
+/// calculate media movel of a vector
 int32_t mediaMovel(int32_t *array) {
     int32_t media = 0;
     for (int i = 0; i < BUFFER_SIZE; i++) {
         media += (array[i]);
     }
-    return (media >> bitshift);// / BUFFER_SIZE;
+    return (media >> bitshift);
 }
