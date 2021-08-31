@@ -1,0 +1,72 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}File Index}{1}{}%
+\contentsline {section}{\numberline {1.1}File List}{1}{}%
+\contentsline {chapter}{\numberline {2}File Documentation}{3}{}%
+\contentsline {section}{\numberline {2.1}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{3}{}%
+\contentsline {subsection}{\numberline {2.1.1}Function Documentation}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.1}loop()}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.2}mediaMovel()}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.3}printLat()}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.4}printLong()}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.5}printScales()}{4}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.6}printTotal()}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.7}processData()}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.8}readButtons()}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.9}readData()}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.10}setup()}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.11}tara()}{5}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.12}TaskLeitura()}{6}{}%
+\contentsline {subsubsection}{\numberline {2.1.1.13}TaskUpdateLCD()}{6}{}%
+\contentsline {subsection}{\numberline {2.1.2}Variable Documentation}{6}{}%
+\contentsline {subsubsection}{\numberline {2.1.2.1}threadSemaphore}{6}{}%
+\contentsline {section}{\numberline {2.2}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{6}{}%
+\contentsline {subsection}{\numberline {2.2.1}Macro Definition Documentation}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}bitshift}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}BUFFER\_SIZE}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.3}FD\_PORT}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.4}FE\_PORT}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.5}FUNC\_PIN}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.6}T\_PIN}{8}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.7}TD\_PORT}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.8}TE\_PORT}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.1.9}UPDATE\_LCD\_HZ}{9}{}%
+\contentsline {subsection}{\numberline {2.2.2}Function Documentation}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.1}lcd()}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.2}mediaMovel()}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.3}printLat()}{9}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.4}printLong()}{10}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.5}printScales()}{10}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.6}printTotal()}{10}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.7}processData()}{10}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.8}readButtons()}{10}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.9}readData()}{10}{}%
+\contentsline {subsubsection}{\numberline {2.2.2.10}tara()}{11}{}%
+\contentsline {subsection}{\numberline {2.2.3}Variable Documentation}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.1}calibrationFactorDd}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.2}calibrationFactorDe}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.3}calibrationFactorTd}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.4}calibrationFactorTe}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.5}d4}{11}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.6}d5}{12}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.7}d6}{12}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.8}d7}{12}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.9}dataDd}{12}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.10}dataDe}{12}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.11}dataTd}{12}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.12}dataTe}{12}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.13}dd}{13}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.14}de}{13}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.15}en}{13}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.16}funcState}{13}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.17}rs}{13}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.18}state}{13}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.19}taraDd}{13}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.20}taraDe}{14}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.21}taraTd}{14}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.22}taraTe}{14}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.23}td}{14}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.24}te}{14}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.25}total}{14}{}%
+\contentsline {subsubsection}{\numberline {2.2.3.26}tState}{14}{}%
+\contentsline {section}{\numberline {2.3}main.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{15}{}%
+\contentsline {chapter}{Index}{17}{}%

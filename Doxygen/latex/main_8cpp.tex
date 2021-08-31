@@ -1,0 +1,174 @@
+\doxysection{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Arduino\+\_\+\+Free\+RTOS.\+h$>$}\newline
+{\ttfamily \#include $<$semphr.\+h$>$}\newline
+{\ttfamily \#include $<$queue.\+h$>$}\newline
+{\ttfamily \#include $<$task.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ Task\+Leitura} (void $\ast$pv\+Parameters)
+\begin{DoxyCompactList}\small\item\em include Free\+RTOS librarys \end{DoxyCompactList}\item 
+void \textbf{ Task\+Update\+LCD} (void $\ast$pv\+Parameters)
+\item 
+void \textbf{ setup} ()
+\begin{DoxyCompactList}\small\item\em mutex que vai controlar porta serial \end{DoxyCompactList}\item 
+void \textbf{ loop} ()
+\item 
+void \textbf{ read\+Buttons} ()
+\begin{DoxyCompactList}\small\item\em read state of each button \end{DoxyCompactList}\item 
+void \textbf{ print\+Scales} ()
+\begin{DoxyCompactList}\small\item\em print data in LCD about individual scales data \end{DoxyCompactList}\item 
+void \textbf{ print\+Long} ()
+\begin{DoxyCompactList}\small\item\em print data in LCD about longitudinal mass distribution \end{DoxyCompactList}\item 
+void \textbf{ print\+Lat} ()
+\begin{DoxyCompactList}\small\item\em print data in LCD about lateral mass distribution \end{DoxyCompactList}\item 
+void \textbf{ print\+Total} ()
+\begin{DoxyCompactList}\small\item\em print data in LCD about total mass of the car \end{DoxyCompactList}\item 
+void \textbf{ read\+Data} ()
+\begin{DoxyCompactList}\small\item\em read analog data and store its in an vector \end{DoxyCompactList}\item 
+void \textbf{ tara} ()
+\item 
+void \textbf{ process\+Data} ()
+\item 
+int32\+\_\+t \textbf{ media\+Movel} (int32\+\_\+t $\ast$array)
+\begin{DoxyCompactList}\small\item\em calculate media movel of an vector \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Semaphore\+Handle\+\_\+t \textbf{ thread\+Semaphore}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\label{main_8cpp_afe461d27b9c48d5921c00d521181f12f}} 
+\index{main.cpp@{main.cpp}!loop@{loop}}
+\index{loop@{loop}!main.cpp@{main.cpp}}
+\doxysubsubsection{loop()}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\label{main_8cpp_ab9d3968bddcf742c6c4bd3c1a637a736}} 
+\index{main.cpp@{main.cpp}!mediaMovel@{mediaMovel}}
+\index{mediaMovel@{mediaMovel}!main.cpp@{main.cpp}}
+\doxysubsubsection{mediaMovel()}
+{\footnotesize\ttfamily int32\+\_\+t media\+Movel (\begin{DoxyParamCaption}\item[{int32\+\_\+t $\ast$}]{array }\end{DoxyParamCaption})}
+
+
+
+calculate media movel of an vector 
+
+\mbox{\label{main_8cpp_ab452b02a2022ea3d9ddd1dbd7748464f}} 
+\index{main.cpp@{main.cpp}!printLat@{printLat}}
+\index{printLat@{printLat}!main.cpp@{main.cpp}}
+\doxysubsubsection{printLat()}
+{\footnotesize\ttfamily void print\+Lat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+print data in LCD about lateral mass distribution 
+
+\mbox{\label{main_8cpp_a405b620083b767029298dae653d90912}} 
+\index{main.cpp@{main.cpp}!printLong@{printLong}}
+\index{printLong@{printLong}!main.cpp@{main.cpp}}
+\doxysubsubsection{printLong()}
+{\footnotesize\ttfamily void print\+Long (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+print data in LCD about longitudinal mass distribution 
+
+\mbox{\label{main_8cpp_a0fe5db18d50b3579df9220887169358e}} 
+\index{main.cpp@{main.cpp}!printScales@{printScales}}
+\index{printScales@{printScales}!main.cpp@{main.cpp}}
+\doxysubsubsection{printScales()}
+{\footnotesize\ttfamily void print\+Scales (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+print data in LCD about individual scales data 
+
+functions \mbox{\label{main_8cpp_aea2a2596d1e5ccc1e8120556cba491b4}} 
+\index{main.cpp@{main.cpp}!printTotal@{printTotal}}
+\index{printTotal@{printTotal}!main.cpp@{main.cpp}}
+\doxysubsubsection{printTotal()}
+{\footnotesize\ttfamily void print\+Total (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+print data in LCD about total mass of the car 
+
+\mbox{\label{main_8cpp_a81fdc119218ad5dab22b05c3c116aa21}} 
+\index{main.cpp@{main.cpp}!processData@{processData}}
+\index{processData@{processData}!main.cpp@{main.cpp}}
+\doxysubsubsection{processData()}
+{\footnotesize\ttfamily void process\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+process data, calculating media movel, removing tara, and converting to kg \mbox{\label{main_8cpp_adf3d0f6e1a9dd64fb3ec03ec0e662bfe}} 
+\index{main.cpp@{main.cpp}!readButtons@{readButtons}}
+\index{readButtons@{readButtons}!main.cpp@{main.cpp}}
+\doxysubsubsection{readButtons()}
+{\footnotesize\ttfamily void read\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+read state of each button 
+
+\mbox{\label{main_8cpp_ab1703367762abc1490e00dcd5ccb29bc}} 
+\index{main.cpp@{main.cpp}!readData@{readData}}
+\index{readData@{readData}!main.cpp@{main.cpp}}
+\doxysubsubsection{readData()}
+{\footnotesize\ttfamily void read\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+read analog data and store its in an vector 
+
+\mbox{\label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{setup()}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+mutex que vai controlar porta serial 
+
+initialize serial communication at 9600 bits per second\+:
+
+read EEPROM data
+
+cria a mutex
+
+Now set up two tasks to run independently.\mbox{\label{main_8cpp_a8ea50eb319d3268e49ea5e748ec1ac71}} 
+\index{main.cpp@{main.cpp}!tara@{tara}}
+\index{tara@{tara}!main.cpp@{main.cpp}}
+\doxysubsubsection{tara()}
+{\footnotesize\ttfamily void tara (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+get the current analog data and store its to EEPROM this value will be subtract from de current data that is being redden \mbox{\label{main_8cpp_a459d1aca8a8745305ad787eac4b4ec87}} 
+\index{main.cpp@{main.cpp}!TaskLeitura@{TaskLeitura}}
+\index{TaskLeitura@{TaskLeitura}!main.cpp@{main.cpp}}
+\doxysubsubsection{TaskLeitura()}
+{\footnotesize\ttfamily void Task\+Leitura (\begin{DoxyParamCaption}\item[{void $\ast$}]{pv\+Parameters }\end{DoxyParamCaption})}
+
+
+
+include Free\+RTOS librarys 
+
+define two tasks for read and print data \mbox{\label{main_8cpp_a814bef23b4780919f656b7d342762fac}} 
+\index{main.cpp@{main.cpp}!TaskUpdateLCD@{TaskUpdateLCD}}
+\index{TaskUpdateLCD@{TaskUpdateLCD}!main.cpp@{main.cpp}}
+\doxysubsubsection{TaskUpdateLCD()}
+{\footnotesize\ttfamily void Task\+Update\+LCD (\begin{DoxyParamCaption}\item[{void $\ast$}]{pv\+Parameters }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\label{main_8cpp_a48004525de23695b27d4b22efb583423}} 
+\index{main.cpp@{main.cpp}!threadSemaphore@{threadSemaphore}}
+\index{threadSemaphore@{threadSemaphore}!main.cpp@{main.cpp}}
+\doxysubsubsection{threadSemaphore}
+{\footnotesize\ttfamily Semaphore\+Handle\+\_\+t thread\+Semaphore}
+
