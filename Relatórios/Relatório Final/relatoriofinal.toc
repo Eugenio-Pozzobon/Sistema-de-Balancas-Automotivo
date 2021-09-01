@@ -17,4 +17,4 @@
 \contentsline {subsubsection}{\numberline {3.3.2}Atualização do Display}{6}{subsubsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.4}Problemas encontrados}{6}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Resultados Obtidos}{6}{section.4}%
-\contentsline {section}{\numberline {5}Conclusão}{7}{section.5}%
+\contentsline {section}{\numberline {5}Conclusão}{6}{section.5}%

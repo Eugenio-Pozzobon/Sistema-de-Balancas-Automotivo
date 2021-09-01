@@ -12,7 +12,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{verbatim}
-\usepackage{minted}
+%\usepackage{minted}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -76,8 +76,7 @@
 	Amplificadores de instrumentação são CIs que amplificam a tensão diferencial de entrada, mantendo alta impedância de entrada, elevada rejeição a sinais de modo comum, e um ganho ajustável por um resistor de ganho. 
 	
 	\subsection{FreeRTOS}
-	
-	% Mau
+	Foi utilizado o FreeRTOS na criação do sistema embarcado como uma biblioteca de multi-thread (ou multitasking), também é um SO preemptivo, ou seja, permite a execução de tarefas em paralelo de forma que cada tarefa acesse o processador por um certo período de tempo e, ao término, troque automaticamente para a próxima tarefa seguindo a prioridade definida no código. 
 	
 	\section{Desenvolvimento Prático}
 	
@@ -120,13 +119,13 @@
 	Foi escolhido utilizar a IDE Clion com Plugin PlatformIO devido a sua integração direta com o Github, possibilitando trabalho em conjunto de forma totalmente remota e compilando diretamente para a raiz de arquivos configurada no Proteus para realizar o upload do código do ATMEGA328P. Por meio desse plugin foi possível configurar um ambiente que rodasse, independente da máquina, tendo acesso as mesmas bibliotecas na raiz de armazenamento da pasta 'lib' e ainda possibilitando a execução de testes unitários com a biblioteca \textit{Unity}. 
 	
 	\subsection{Tasks FreeRTOS}
-	% Mau
+	São tarefas assíncronas que rodam com prioridade especificada pelo usuário, essa execução assíncrona é uma característica do sistema operacional, chamada multi-tasking. As tarefas não se executam ao mesmo tempo e o gerenciamento da execução no tempo é tratado pelo scheduler, que decide quando e qual parte do programa deve rodar.
 	
 	\subsubsection{Leitura de Dados e Processamento}
-	% Mau
+	Utilizamos para receber os dados das balanças e armazenar no vetor.
 	
 	\subsubsection{Atualização do Display}
-	% Mau
+	É onde verificamos o estado atual do botão e mediante a isto atualizamos o LCD.
 	
 	\subsection{Problemas encontrados}
 	\label{poblemas}
