@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kt}{int32\PYGZus{}t} \PYG{n+nf}{mediaMovel}\PYG{p}{(}\PYG{k+kt}{int32\PYGZus{}t} \PYG{o}{*}\PYG{n}{array}\PYG{p}{)\PYGZob{}}
+		\PYG{k+kt}{int32\PYGZus{}t} \PYG{n}{media} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+		\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{BUFFER\PYGZus{}SIZE}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+			\PYG{n}{media} \PYG{o}{+=} \PYG{p}{(}\PYG{n}{array}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]);}
+		\PYG{p}{\PYGZcb{}}
+		\PYG{k}{return} \PYG{p}{(}\PYG{n}{media} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{bitshift}\PYG{p}{);}\PYG{c+c1}{// / BUFFER\PYGZus{}SIZE;}
+	\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
